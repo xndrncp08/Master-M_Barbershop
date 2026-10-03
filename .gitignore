@@ -1,0 +1,24 @@
+# dependencies
+node_modules/
+
+# next.js
+.next/
+out/
+next-env.d.ts
+
+# testing
+coverage/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# env
+.env*.local
+.env
+
+# misc
+.DS_Store
+*.tsbuildinfo
+npm-debug.log*
+.vercel
