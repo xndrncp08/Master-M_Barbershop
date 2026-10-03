@@ -101,11 +101,12 @@ export const SERVICES = [
   },
 ] as const satisfies readonly Service[];
 
-export type ServiceId = (typeof SERVICES)[number]["id"];
+export type CatalogService = (typeof SERVICES)[number];
+export type ServiceId = CatalogService["id"];
 
 export const SERVICE_IDS = SERVICES.map((s) => s.id) as [ServiceId, ...ServiceId[]];
 
-export function getService(id: string | null | undefined): Service | undefined {
+export function getService(id: string | null | undefined): CatalogService | undefined {
   return SERVICES.find((s) => s.id === id);
 }
 
