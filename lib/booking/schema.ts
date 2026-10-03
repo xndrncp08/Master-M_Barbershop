@@ -71,8 +71,11 @@ export const customerSchema = z.object({
     .max(500, "Keep notes under 500 characters.")
     .optional()
     .transform((value) => (value ? sanitizeText(value) : "")),
-  /** Honeypot: real visitors never see or fill this field. */
-  company: z.string().max(0).optional().or(z.literal("")),
+  /**
+   * Honeypot: real visitors never see or fill this field. Accepted here so bots
+   * get no field-level hint; the booking service rejects non-empty values.
+   */
+  company: z.string().max(200).optional(),
 });
 
 export const bookingRequestSchema = selectionSchema.extend(customerSchema.shape);
