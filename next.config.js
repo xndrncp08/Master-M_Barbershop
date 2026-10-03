@@ -1,6 +1,9 @@
 // @ts-check
 
 const isDev = process.env.NODE_ENV !== "production";
+// Only upgrade subresources when the site is actually served over HTTPS, so
+// local `next start` runs (and E2E tests) over plain HTTP keep working.
+const isHttps = (process.env.NEXT_PUBLIC_SITE_URL ?? "").startsWith("https://") || Boolean(process.env.VERCEL);
 
 /**
  * Content Security Policy.
@@ -25,7 +28,7 @@ const csp = [
   "form-action 'self'",
   "frame-ancestors 'none'",
   "manifest-src 'self'",
-  ...(isDev ? [] : ["upgrade-insecure-requests"]),
+  ...(isHttps ? ["upgrade-insecure-requests"] : []),
 ].join("; ");
 
 const securityHeaders = [
